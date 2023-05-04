@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Checkout</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div class="container">
+		<h1>My E-Commerce Website</h1>
+		<div class="products">
+			<div class="product">
+				<h2>Product 1</h2>
+				<p>Description of Product 1</p>
+				<p>Price: $10</p>
+                <form method="POST" action="{% url 'checkout' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_name" value="Product 1">
+					<input type="hidden" name="amount" placeholder="Amount" value="10">
+                    <button type="submit">Pay with Razorpay</button>
+                </form>
+                <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                <script>
+                    var options = {
+                        "key": "{{ settings.RAZORPAY_KEY_ID }}",
+                        "amount": "{{ amount }}",
+                        "name": "My Store",
+                        "description": "Purchase Description",
+                        "image": "https://example.com/your_logo",
+                        "handler": function (response){
+                            alert(response.razorpay_payment_id);
+                        },
+                        "prefill": {
+                            "name": "John Doe",
+                            "email": "john@example.com",
+                            "contact": "9999999999"
+                        },
+                        "notes": {
+                            "address": "Razorpay Corporate Office"
+                        },
+                        "theme": {
+                            "color": "#F37254"
+                        }
+                    };
+                    var rzp1 = new Razorpay(options);
+                    rzp1.on('payment.failed', function (response){
+                        alert(response.error.code);
+                        alert(response.error.description);
+                        alert(response.error.source);
+                        alert(response.error.step);
+                        alert(response.error.reason);
+                        alert(response.error.metadata.order_id);
+                        alert(response.error.metadata.payment_id);
+                    });
+                    document.getElementById('rzp-button1').onclick = function(e){
+                        rzp1.open();
+                        e.preventDefault();
+                    }
+                </script>
+			</div>
+			<div class="product">
+				<h2>Product 2</h2>
+				<p>Description of Product 2</p>
+				<p>Price: $20</p>
+				<form method="POST" action="{% url 'checkout' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_name" value="Product 1">
+					<input type="hidden" name="amount" placeholder="Amount" value="10">
+                    <button type="submit">Pay with Razorpay</button>
+                </form>
+                <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                <script>
+                    var options = {
+                        "key": "{{ settings.RAZORPAY_KEY_ID }}",
+                        "amount": "{{ amount }}",
+                        "name": "My Store",
+                        "description": "Purchase Description",
+                        "image": "https://example.com/your_logo",
+                        "handler": function (response){
+                            alert(response.razorpay_payment_id);
+                        },
+                        "prefill": {
+                            "name": "John Doe",
+                            "email": "john@example.com",
+                            "contact": "9999999999"
+                        },
+                        "notes": {
+                            "address": "Razorpay Corporate Office"
+                        },
+                        "theme": {
+                            "color": "#F37254"
+                        }
+                    };
+                    var rzp1 = new Razorpay(options);
+                    rzp1.on('payment.failed', function (response){
+                        alert(response.error.code);
+                        alert(response.error.description);
+                        alert(response.error.source);
+                        alert(response.error.step);
+                        alert(response.error.reason);
+                        alert(response.error.metadata.order_id);
+                        alert(response.error.metadata.payment_id);
+                    });
+                    document.getElementById('rzp-button1').onclick = function(e){
+                        rzp1.open();
+                        e.preventDefault();
+                    }
+                </script>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

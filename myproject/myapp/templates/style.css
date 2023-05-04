@@ -1,0 +1,19 @@
+.container {
+	max-width: 800px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.products {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 50px;
+}
+
+.product {
+	width: 300px;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	text-align: left;
+}
